@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Básica de Three JS: Dibuja en 3d en el navegador con JS</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/three.js"></script>
+  <script>
+    // Escena
+    const scene = new THREE.Scene();
+    // Cámara PerspectiveCamera(fov, aspect, near, far)
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // Renderizador
+    const renderer = new THREE.WebGLRenderer();
+    // Tamaño del renderizador (ancho, alto)
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // Agregar el renderizador al DOM
+    document.body.appendChild(renderer.domElement);
+
+    // Crear un cubo
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Posición de la cámara
+    camera.position.z = 5;
+
+    // Animación
+    const animate = () => {
+      // Función que se ejecuta en cada frame
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
